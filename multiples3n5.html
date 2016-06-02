@@ -1,0 +1,27 @@
+<html>
+<head>
+	<title>Multiples of 3 and 5</title>
+	<script type="text/javascript">
+		var sum = 0;
+		for(var i=1; i < 1000; i++){
+			var multipleOf3 = i % 3;
+			var multipleof5 = i % 5;
+			if(multipleOf3 === 0 || multipleof5 === 0){
+				sum = sum + i;
+
+				if(multipleOf3 === 0) {
+					console.log("multiple of 3 is: " + i);
+				} else {
+					console.log("multiple of 5 is: " + i);
+				}
+			}
+		}
+		console.log("sum of multipleso 3 to 5 is: " + sum);
+
+
+	</script>
+</head>
+<body>
+The multiples of 3 and 5 less than 1000 are: 
+</body>
+</html>

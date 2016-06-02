@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+<script type="text/javascript">
+
+var $ = function(id){
+	return document.getElementById(id);
+}
+
+var startTimer = function(){
+	var min = $("minutes").value;
+	var sec = $("seconds").value;
+	if (sec === null) {
+		sec = 60;
+		min = min--;
+	}
+	var countDownSec = setInterval(function() {
+			console.log("in countDownSec")
+			console.log("min: " + min + "   sec: " + sec)
+		}, 1000);
+
+	} // end startTimer
+
+window.onload = function () {
+	$("start").onclick = startTimer;
+} // end onload
+
+
+
+</script>
+</head>
+<body>
+<label for="minutes">Minutes:</label>
+<input type="text" name="minutes" id="minutes"></input>
+
+<label for="seconds">Seconds:</label>
+<input type="text" id="seconds" name="seconds"></input>
+
+<button id="start">Start</button>
+<button id="pause">Pause</button>
+<ubtton id="reset">Reset</ubtton>
+</body>
+</html>

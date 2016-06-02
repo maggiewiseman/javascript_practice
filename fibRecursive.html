@@ -1,0 +1,45 @@
+<html>
+<head>
+	<title>Fibonacci Sequence</title>
+	<script type="text/javascript">
+	var num1 = 1;
+	var num2 = 2;
+	console.log(num1 + ", " + num2)
+
+	function getnthFib(n, num1, num2){
+		if(n === 1) {
+			return num1;
+		} else {
+			return( getnthFib(n-1, num2, num1 + num2));
+		}
+
+
+	}
+
+	console.log(getnthFib(4, 1, 2));
+
+//
+/*	function printFib(num1, num2){
+
+		var sum = num1 + num2;
+		if(sum < 40){
+			console.log(sum);
+			num1 = num2;
+			num2 = sum;
+			printFib(num1, num2);
+			console.log(sum);
+
+		}else {
+			console.log("end of sequence");
+		}
+
+	}
+
+	printFib(num1, num2);
+*/
+	</script>
+</head>
+<body>
+
+</body>
+</html>

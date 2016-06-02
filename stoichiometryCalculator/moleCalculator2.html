@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Stoichiometry Calculator</title>
+
+</head>
+<body>
+<label for="mass_sample">Mass of sample: </label>
+<input id="mass_sample" type="text" placeholder="mass in grams"></input>
+<label for="molar_mass">Molar Mass</label>
+<input id="molar_mass" type="text" placeholder="molar mass"></input>
+<button type="submit" id="calc_moles">Submit</button>
+<p id="moles_answer"></p>
+
+<script type="text/javascript">
+	var pt = require('periodic-table');	//this doens't work b/c of some server side thing...need to figure out the proper way of using npm
+
+	function calc_moles() {
+		var mass_sample = parseFloat(document.getElementById("mass_sample").value);
+		var molar_mass = parseFloat(document.getElementById("molar_mass").value);
+		var moles = mass_sample/molar_mass;
+		console.log(mass_sample + " and " + molar_mass);
+		console.log(moles);
+		var p = document.getElementById("moles_answer");
+		p.innerHTML = "Moles = " + moles;
+		
+	}
+
+	var moles = document.getElementById("calc_moles").onclick = calc_moles;
+	
+
+</script>
+</body>
+</html>

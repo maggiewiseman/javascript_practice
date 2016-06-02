@@ -1,0 +1,35 @@
+<html>
+<head>
+<script>
+
+
+ var counter = 0;
+var timer = setInterval( function() {
+	 counter++;
+ 	document.getElementById("counter").firstChild.nodeValue = counter;
+ }, 1000);
+
+var stopTimer = function () {
+	console.log("in stopTimer")
+	clearInterval(timer);	
+}
+
+window.onload = function() {
+	
+ document.getElementById("stopButton").onclick = stopTimer;
+
+	
+}
+
+
+</script>
+</head>
+<body>
+<h1>Timer: </h1>
+<p  id="counter" >&nbsp	 </p>
+<button id="stopButton">Stop Timer</button>
+
+
+</body>
+</html>		
+	
