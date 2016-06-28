@@ -4,29 +4,25 @@
 	<link rel="stylesheet" type="text/css" href="">
 	<style type="text/css">
 	body {
-		margin: 0;
+		
 	}
-	div {
+	
 
-		width: 100%;
-		margin: 2px;
-		display: inline-block;
-
-		}
 
 	
 
 	table, tr {
-	   border: 1px solid black;
 	}
 
 	td.blankSpace {
 		width: 20px;
 		border: none;
+
 	}
 
 	td.ptElement {
 		border: 1px black solid;
+		font-family: arial;
 	}
 
 	.hit {
@@ -36,368 +32,66 @@
 	.miss {
 		background: blue;
 	}
+
+	.econfigLabels td {
+		width: 19px;
+		font-family: arial;
+		border: 1px white solid;
+
+	}
+
+	
 	</style>
 </head>
 <body>
 
-<div id="ptTable">
-	<div class="period">	</div>
+<form id="ptLabels">
+<label for="econfigCheckbox">Show: </label>
+<input type="checkbox" id="econfigCheckbox" value="Electron Configuration">Show Electron Configuration<br>
+<input type="submit" id="submitForCheckboxes"></input>
+
+<br>
+
+<label for="hitLocation">Enter coordinates for hit: </label>
+<input type="text" id="hitLocation"> 
+<input type="submit" id="submitHit"></input>
+<br><br>
+<label for="missLocation">Enter coordinates for miss: </label>
+<input type="text" id="missLocation">
+<input type="submit" id="submitMiss"></input>
+
+
+</form>
+
+<div id="ptBorderInfo">
+	<div id="eConfigs">
+		<table class="econfigLabels">
+				<tr><td>s<sup>1</sup></td>
+				<td>s<sup>2</sup></td>		
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>				
+				<td>p<sup>1</sup></td>	
+				<td>p<sup>2</sup></td>	
+				<td>p<sup>3</sup></td>	
+				<td>p<sup>4</sup></td>	
+				<td>p<sup>5</sup></td>	
+				<td>p<sup>6</sup></td>	
+
+				</tr>
+		</table>
+	</div>
 </div>
 
 </body>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-<script>
-/*function $(id){
-	return document.getElementById(id);
-}*/
-
-var PT = [
-{"atomicNumber":1,"symbol":"H","name":"Hydrogen","atomicMass":"1.00794(4)","cpkHexColor":"FFFFFF","electronicConfiguration":"1s1","electronegativity":2.2,"atomicRadius":37,"ionRadius":"","vanDelWaalsRadius":120,"ionizationEnergy":1312,"electronAffinity":-73,"oxidationStates":"-1, 1","standardState":"gas","bondingType":"diatomic","meltingPoint":14,"boilingPoint":20,"density":0.0000899,"groupBlock":"nonmetal","yearDiscovered":1766},
-{"atomicNumber":2,"symbol":"He","name":"Helium","atomicMass":"4.002602(2)","cpkHexColor":"D9FFFF","electronicConfiguration":"1s2","electronegativity":"","atomicRadius":32,"ionRadius":"","vanDelWaalsRadius":140,"ionizationEnergy":2372,"electronAffinity":0,"oxidationStates":"","standardState":"gas","bondingType":"atomic","meltingPoint":"","boilingPoint":4,"density":0.0001785,"groupBlock":"noble gas","yearDiscovered":1868},
-{"atomicNumber":3,"symbol":"Li","name":"Lithium","atomicMass":"6.941(2)","cpkHexColor":"CC80FF","electronicConfiguration":"[He] 2s1","electronegativity":0.98,"atomicRadius":134,"ionRadius":"76 (+1)","vanDelWaalsRadius":182,"ionizationEnergy":520,"electronAffinity":-60,"oxidationStates":1,"standardState":"solid","bondingType":"metallic","meltingPoint":454,"boilingPoint":1615,"density":0.535,"groupBlock":"alkali metal","yearDiscovered":1817},
-{"atomicNumber":4,"symbol":"Be","name":"Beryllium","atomicMass":"9.012182(3)","cpkHexColor":"C2FF00","electronicConfiguration":"[He] 2s2","electronegativity":1.57,"atomicRadius":90,"ionRadius":"45 (+2)","vanDelWaalsRadius":"","ionizationEnergy":900,"electronAffinity":0,"oxidationStates":2,"standardState":"solid","bondingType":"metallic","meltingPoint":1560,"boilingPoint":2743,"density":1.848,"groupBlock":"alkaline earth metal","yearDiscovered":1798},
-{"atomicNumber":5,"symbol":"B","name":"Boron","atomicMass":"10.811(7)","cpkHexColor":"FFB5B5","electronicConfiguration":"[He] 2s2 2p1","electronegativity":2.04,"atomicRadius":82,"ionRadius":"27 (+3)","vanDelWaalsRadius":"","ionizationEnergy":801,"electronAffinity":-27,"oxidationStates":"1, 2, 3","standardState":"solid","bondingType":"covalent network","meltingPoint":2348,"boilingPoint":4273,"density":2.46,"groupBlock":"metalloid","yearDiscovered":1807},
-{"atomicNumber":6,"symbol":"C","name":"Carbon","atomicMass":"12.0107(8)","cpkHexColor":909090,"electronicConfiguration":"[He] 2s2 2p2","electronegativity":2.55,"atomicRadius":77,"ionRadius":"16 (+4)","vanDelWaalsRadius":170,"ionizationEnergy":1087,"electronAffinity":-154,"oxidationStates":"-4, -3, -2, -1, 1, 2, 3, 4","standardState":"solid","bondingType":"covalent network","meltingPoint":3823,"boilingPoint":4300,"density":2.26,"groupBlock":"nonmetal","yearDiscovered":"Ancient"},
-{"atomicNumber":7,"symbol":"N","name":"Nitrogen","atomicMass":"14.0067(2)","cpkHexColor":"3050F8","electronicConfiguration":"[He] 2s2 2p3","electronegativity":3.04,"atomicRadius":75,"ionRadius":"146 (-3)","vanDelWaalsRadius":155,"ionizationEnergy":1402,"electronAffinity":-7,"oxidationStates":"-3, -2, -1, 1, 2, 3, 4, 5","standardState":"gas","bondingType":"diatomic","meltingPoint":63,"boilingPoint":77,"density":0.001251,"groupBlock":"nonmetal","yearDiscovered":1772},
-{"atomicNumber":8,"symbol":"O","name":"Oxygen","atomicMass":"15.9994(3)","cpkHexColor":"FF0D0D","electronicConfiguration":"[He] 2s2 2p4","electronegativity":3.44,"atomicRadius":73,"ionRadius":"140 (-2)","vanDelWaalsRadius":152,"ionizationEnergy":1314,"electronAffinity":-141,"oxidationStates":"-2, -1, 1, 2","standardState":"gas","bondingType":"diatomic","meltingPoint":55,"boilingPoint":90,"density":0.001429,"groupBlock":"nonmetal","yearDiscovered":1774},
-{"atomicNumber":9,"symbol":"F","name":"Fluorine","atomicMass":"18.9984032(5)","cpkHexColor":9e+51,"electronicConfiguration":"[He] 2s2 2p5","electronegativity":3.98,"atomicRadius":71,"ionRadius":"133 (-1)","vanDelWaalsRadius":147,"ionizationEnergy":1681,"electronAffinity":-328,"oxidationStates":-1,"standardState":"gas","bondingType":"atomic","meltingPoint":54,"boilingPoint":85,"density":0.001696,"groupBlock":"halogen","yearDiscovered":1670},
-{"atomicNumber":10,"symbol":"Ne","name":"Neon","atomicMass":"20.1797(6)","cpkHexColor":"B3E3F5","electronicConfiguration":"[He] 2s2 2p6","electronegativity":"","atomicRadius":69,"ionRadius":"","vanDelWaalsRadius":154,"ionizationEnergy":2081,"electronAffinity":0,"oxidationStates":"","standardState":"gas","bondingType":"atomic","meltingPoint":25,"boilingPoint":27,"density":0.0009,"groupBlock":"noble gas","yearDiscovered":1898},
-{"atomicNumber":11,"symbol":"Na","name":"Sodium","atomicMass":"22.98976928(2)","cpkHexColor":"AB5CF2","electronicConfiguration":"[Ne] 3s1","electronegativity":0.93,"atomicRadius":154,"ionRadius":"102 (+1)","vanDelWaalsRadius":227,"ionizationEnergy":496,"electronAffinity":-53,"oxidationStates":"-1, 1","standardState":"solid","bondingType":"metallic","meltingPoint":371,"boilingPoint":1156,"density":0.968,"groupBlock":"alkali metal","yearDiscovered":1807},
-{"atomicNumber":12,"symbol":"Mg","name":"Magnesium","atomicMass":"24.3050(6)","cpkHexColor":"8AFF00","electronicConfiguration":"[Ne] 3s2","electronegativity":1.31,"atomicRadius":130,"ionRadius":"72 (+2)","vanDelWaalsRadius":173,"ionizationEnergy":738,"electronAffinity":0,"oxidationStates":"1, 2","standardState":"solid","bondingType":"metallic","meltingPoint":923,"boilingPoint":1363,"density":1.738,"groupBlock":"alkaline earth metal","yearDiscovered":1808},
-{"atomicNumber":13,"symbol":"Al","name":"Aluminum","atomicMass":"26.9815386(8)","cpkHexColor":"BFA6A6","electronicConfiguration":"[Ne] 3s2 3p1","electronegativity":1.61,"atomicRadius":118,"ionRadius":"53.5 (+3)","vanDelWaalsRadius":"","ionizationEnergy":578,"electronAffinity":-43,"oxidationStates":"1, 3","standardState":"solid","bondingType":"metallic","meltingPoint":933,"boilingPoint":2792,"density":2.7,"groupBlock":"metal","yearDiscovered":"Ancient"},
-{"atomicNumber":14,"symbol":"Si","name":"Silicon","atomicMass":"28.0855(3)","cpkHexColor":"F0C8A0","electronicConfiguration":"[Ne] 3s2 3p2","electronegativity":1.9,"atomicRadius":111,"ionRadius":"40 (+4)","vanDelWaalsRadius":210,"ionizationEnergy":787,"electronAffinity":-134,"oxidationStates":"-4, -3, -2, -1, 1, 2, 3, 4","standardState":"solid","bondingType":"metallic","meltingPoint":1687,"boilingPoint":3173,"density":2.33,"groupBlock":"metalloid","yearDiscovered":1854},
-{"atomicNumber":15,"symbol":"P","name":"Phosphorus","atomicMass":"30.973762(2)","cpkHexColor":"FF8000","electronicConfiguration":"[Ne] 3s2 3p3","electronegativity":2.19,"atomicRadius":106,"ionRadius":"44 (+3)","vanDelWaalsRadius":180,"ionizationEnergy":1012,"electronAffinity":-72,"oxidationStates":"-3, -2, -1, 1, 2, 3, 4, 5","standardState":"solid","bondingType":"covalent network","meltingPoint":317,"boilingPoint":554,"density":1.823,"groupBlock":"nonmetal","yearDiscovered":1669},
-{"atomicNumber":16,"symbol":"S","name":"Sulfur","atomicMass":"32.065(5)","cpkHexColor":"FFFF30","electronicConfiguration":"[Ne] 3s2 3p4","electronegativity":2.58,"atomicRadius":102,"ionRadius":"184 (-2)","vanDelWaalsRadius":180,"ionizationEnergy":1000,"electronAffinity":-200,"oxidationStates":"-2, -1, 1, 2, 3, 4, 5, 6","standardState":"solid","bondingType":"covalent network","meltingPoint":388,"boilingPoint":718,"density":1.96,"groupBlock":"nonmetal","yearDiscovered":"Ancient"},
-{"atomicNumber":17,"symbol":"Cl","name":"Chlorine","atomicMass":"35.453(2)","cpkHexColor":"1FF01F","electronicConfiguration":"[Ne] 3s2 3p5","electronegativity":3.16,"atomicRadius":99,"ionRadius":"181 (-1)","vanDelWaalsRadius":175,"ionizationEnergy":1251,"electronAffinity":-349,"oxidationStates":"-1, 1, 2, 3, 4, 5, 6, 7","standardState":"gas","bondingType":"covalent network","meltingPoint":172,"boilingPoint":239,"density":0.003214,"groupBlock":"halogen","yearDiscovered":1774},
-{"atomicNumber":18,"symbol":"Ar","name":"Argon","atomicMass":"39.948(1)","cpkHexColor":"80D1E3","electronicConfiguration":"[Ne] 3s2 3p6","electronegativity":"","atomicRadius":97,"ionRadius":"","vanDelWaalsRadius":188,"ionizationEnergy":1521,"electronAffinity":0,"oxidationStates":"","standardState":"gas","bondingType":"atomic","meltingPoint":84,"boilingPoint":87,"density":0.001784,"groupBlock":"noble gas","yearDiscovered":1894},
-{"atomicNumber":19,"symbol":"K","name":"Potassium","atomicMass":"39.0983(1)","cpkHexColor":"8F40D4","electronicConfiguration":"[Ar] 4s1","electronegativity":0.82,"atomicRadius":196,"ionRadius":"138 (+1)","vanDelWaalsRadius":275,"ionizationEnergy":419,"electronAffinity":-48,"oxidationStates":1,"standardState":"solid","bondingType":"metallic","meltingPoint":337,"boilingPoint":1032,"density":0.856,"groupBlock":"alkali metal","yearDiscovered":1807},
-{"atomicNumber":20,"symbol":"Ca","name":"Calcium","atomicMass":"40.078(4)","cpkHexColor":"3DFF00","electronicConfiguration":"[Ar] 4s2","electronegativity":1,"atomicRadius":174,"ionRadius":"100 (+2)","vanDelWaalsRadius":"","ionizationEnergy":590,"electronAffinity":-2,"oxidationStates":2,"standardState":"solid","bondingType":"metallic","meltingPoint":1115,"boilingPoint":1757,"density":1.55,"groupBlock":"alkaline earth metal","yearDiscovered":"Ancient"}]
-
-var PT2 = {"table": [
-		{
-			"elements": [
-				{
-					"group": "",
-					"position": 0,
-					"name": "Hydrogen",
-					"number": 1,
-					"small": "H",
-					"molar": 1.00794,
-					"electrons": [
-						1
-					]
-				},
-				{
-					"group": "Element Noble p",
-					"position": 17,
-					"name": "Helium",
-					"number": 2,
-					"small": "He",
-					"molar": 4.002602,
-					"electrons": [
-						2
-					]
-				}
-			]
-		},
-		{
-			"elements": [
-				{
-					"group": "Element Alkali s",
-					"position": 0,
-					"name": "Lithium",
-					"number": 3,
-					"small": "Li",
-					"molar": 6.941,
-					"electrons": [
-						2,
-						1
-					]
-				},
-				{
-					"group": "Element Alkaline s",
-					"position": 1,
-					"name": "Beryllium",
-					"number": 4,
-					"small": "Be",
-					"molar": 9.012182,
-					"electrons": [
-						2,
-						2
-					]
-				},
-				{
-					"group": "Element Metalloid Boron p",
-					"position": 12,
-					"name": "Boron",
-					"number": 5,
-					"small": "B",
-					"molar": 10.811,
-					"electrons": [
-						2,
-						3
-					]
-				},
-				{
-					"group": "Element Nonmetal Carbon p",
-					"position": 13,
-					"name": "Carbon",
-					"number": 6,
-					"small": "C",
-					"molar": 12.0107,
-					"electrons": [
-						2,
-						4
-					]
-				},
-				{
-					"group": "Element Nonmetal Pnictogen p",
-					"position": 14,
-					"name": "Nitrogen",
-					"number": 7,
-					"small": "N",
-					"molar": 14.0067,
-					"electrons": [
-						2,
-						5
-					]
-				},
-				{
-					"group": "Element Nonmetal Chalcogen p",
-					"position": 15,
-					"name": "Oxygen",
-					"number": 8,
-					"small": "O",
-					"molar": 15.9994,
-					"electrons": [
-						2,
-						6
-					]
-				},
-				{
-					"group": "Element Halogen p",
-					"position": 16,
-					"name": "Fluorine",
-					"number": 9,
-					"small": "F",
-					"molar": 18.998404,
-					"electrons": [
-						2,
-						7
-					]
-				},
-				{
-					"group": "Element Noble p",
-					"position": 17,
-					"name": "Neon",
-					"number": 10,
-					"small": "Ne",
-					"molar": 20.1797,
-					"electrons": [
-						2,
-						8
-					]
-				}
-			]
-		},
-		{
-			"elements": [
-				{
-					"group": "Element Alkali s",
-					"position": 0,
-					"name": "Sodium",
-					"number": 11,
-					"small": "Na",
-					"molar": 22.989769,
-					"electrons": [
-						2,
-						8,
-						1
-					]
-				},
-				{
-					"group": "Element Alkaline s",
-					"position": 1,
-					"name": "Magnesium",
-					"number": 12,
-					"small": "Mg",
-					"molar": 24.305,
-					"electrons": [
-						2,
-						8,
-						2
-					]
-				},
-				{
-					"group": "Element Poor Boron p",
-					"position": 12,
-					"name": "Aluminium",
-					"number": 13,
-					"small": "Al",
-					"molar": 26.981539,
-					"electrons": [
-						2,
-						8,
-						3
-					]
-				},
-				{
-					"group": "Element Metalloid Carbon p",
-					"position": 13,
-					"name": "Silicon",
-					"number": 14,
-					"small": "Si",
-					"molar": 28.0855,
-					"electrons": [
-						2,
-						8,
-						4
-					]
-				},
-				{
-					"group": "Element Nonmetal Pnictogen p",
-					"position": 14,
-					"name": "Phosphorus",
-					"number": 15,
-					"small": "P",
-					"molar": 30.973763,
-					"electrons": [
-						2,
-						8,
-						5
-					]
-				},
-				{
-					"group": "Element Nonmetal Chalcogen p",
-					"position": 15,
-					"name": "Sulfur",
-					"number": 16,
-					"small": "S",
-					"molar": 32.065,
-					"electrons": [
-						2,
-						8,
-						6
-					]
-				},
-				{
-					"group": "Element Halogen p",
-					"position": 16,
-					"name": "Chlorine",
-					"number": 17,
-					"small": "Cl",
-					"molar": 35.453,
-					"electrons": [
-						2,
-						8,
-						7
-					]
-				},
-				{
-					"group": "Element Noble p",
-					"position": 17,
-					"name": "Argon",
-					"number": 18,
-					"small": "Ar",
-					"molar": 39.948,
-					"electrons": [
-						2,
-						8,
-						8
-					]
-				}
-			]
-		}
-	]
-};
-
-var showEconfig = false;
-var showValence = false;
-
-function elementAt(period, index) {
-	console.log("index is :" + index);
-	for(var j = 0; j < period.elements.length; j++){
-		if(period.elements[j].position === index) {
-			console.log("returning an element: " + period.elements[j].small);
-			return period.elements[j];
-		}
-	}
-	console.log("returning null");
-	return null;
-
-}
-
-function makeRowOfElements(period){
-
-	console.log("in make row of elements");
-	var row = "";	
-
-
-	for(var i = 0; i < 18; i++) {
-
-		element = elementAt(period, i);
-		if(element != null){
-			var symbol = element.small;
-
-				row = row + "<td class='ptElement'>" + symbol + "</td>";
-		
-		} else {
-			row = row + "<td class='blankSpace'></td>";
-		}
-
-	}	
-
-	console.log("row = " + row);
-	return row;
-}
-
-function printElements() {
-	for(var i = 0; i < PT2.table.length; i++){
-		console.log("period " + i);
-		var period = PT2.table[i];
-
-		for(var j = 0; j < period.elements.length; j++){
-			var element = period.elements[j];
-			console.log(element.name);
-			console.log("position is: " + element.position);
-			console.log("symbol is: " + element.small);
-		}
-
-	}
-
-	document.write("<div class='ptTable'><table>");
-
-	//loop through the periods
-	for(var k = 0; k < PT2.table.length; k++){
-		// set each period in object = to period variable
-		var period = PT2.table[k];
-		//make a row for each period.
-		document.write("<tr>");
-		// make a 18 cells for each row, but some need to be skipped...
-		
-		document.write(makeRowOfElements(period));
-
-
-		document.write("</tr>");
-
-	}
-	document.write("</table></div>")
-
-}
-
-printElements();
-
-$(document).ready(function(){
-	$(".ptElement").click(function(){	
-		$(this).toggleClass("miss");
-
-	}); // end click
-	$(".ptElement").dblclick(function(){
-		$(this).toggleClass("hit");
-
-	}); //end dblclick
-}); // end ready
-
-</script>
+<script type="text/javascript" src="main.js"></script>
 
 </html>
