@@ -1,0 +1,225 @@
+<html>
+    <head>
+        <title>CodePlayer</title>
+        <style type="text/css">
+
+        	body {
+        		margin: 0;
+        		padding: 0;
+        		font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+   font-weight: 300;
+        	}
+        	#brand {
+        		font-size: 1.2em;
+        		font-weight: bold;
+        		padding-top: 0.5em;
+        		padding-left: 2em;
+        		float: left;
+        	}
+
+        	.header {
+        		background-color: #e0e0e0;
+        		height: 3em;
+        		border-bottom: solid black 1px;
+        		width: 100%;
+
+        	}
+
+        	#toggles{
+        		width: 196px;
+        		margin: 0 auto;
+                list-style: none;
+                border: 1px solid gray;
+        		border-radius: 3px;
+        		padding: 0;
+        		height: 27px;
+                position: relative;
+                top: 5px;
+
+        	} 
+
+        	ul#toggles li{
+        		float: left;
+        		border-right: solid black 0.5px;
+        		padding: 5px 5px 5px 5px;
+        	}
+
+        	ul#toggles li a {
+        		color: black;
+        		text-decoration: none;
+                font-size: 1.2em;
+        		
+
+        	}
+
+        	#buttonDiv {
+        		float: right;
+        		padding-top: 0.5em;
+        		padding-right: 3em;
+        	}
+
+
+        	#runButton {
+        		
+        		font-size: 1.1em;
+        		
+        	}
+
+            .codeViews {
+
+            }
+            .codeViews div{
+                float: left;
+                height: 100%;
+                width: 50%;
+                position: relative;
+
+            }
+
+            .codeViews textarea {
+                width: 100%;
+                height: 100%;
+                border: none;
+                border-right: 1px solid gray;
+                font-family:  monospace;
+                font-size: 1.2em;
+                padding-left: 5px;
+            }
+            .clear {
+                clear:both;
+            }
+
+            .codeViewButton {
+                float: right;
+                position: absolute;
+                top: 10px;
+                right: 20px;
+                font-size: 1em;
+            }
+
+            #cssView, #jsView   {
+                display: none;
+            }
+
+            iframe {
+                height: 100%;
+                position: relative;
+                left: 20px;
+
+            }
+
+            .show {
+                background-color: gray;
+            }
+        </style>
+
+      
+    </head>
+    <body>
+    <div class="wrapper">
+    	<div class="header">
+    		<div id="brand">CodePlayer</div>
+
+            <div id="buttonDiv">
+                <button type="button" id="runButton">Run</button>
+            </div>
+    		
+    		<ul id="toggles">
+    				<li id="HTMLToggle" class="show">HTML</li>
+    				<li id="CSSToggle">CSS</li>
+    				<li id="jsToggle"> &nbsp; JS &nbsp; </li>
+    				<li id="resultToggle" class="show" style="border:none">Result</li>
+    		</ul>
+    	</div> <!-- end header -->
+
+
+        <div class="codeViews">
+            <div id="htmlView">
+                <textarea><p>Example Code</p><div id="test"></div></textarea>
+                <button id="htmlViewButton" class="codeViewButton">HTML</button>
+            </div> 
+            <div id="cssView">
+                <textarea>p {color: blue;} </textarea>
+                <button id="cssViewButton" class="codeViewButton">CSS</button>
+            </div> 
+            <div id="jsView">
+                <textarea>alert("hello world"); document.getElementById("test").innerHTML = "It's working";</textarea>
+                <button id="jsViewButton" class="codeViewButton">JS</button>
+            </div> 
+            <div id="resultsView">
+                <iframe id="resultsIframe" src=""></iframe>
+                <button id="resultsViewButton" class="codeViewButton">Results</button>
+            </div> 
+
+        </div>
+
+    </div> <!-- end wrapper -->
+    </body>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script>
+
+    function getNumTogglesToShow(){
+         console.log("in getNumTogglesToShow");
+
+          var i = 0;
+          $("#toggles li").each(function(){
+                
+                if($(this).attr("class") === "show") {
+                    i++;
+                }
+            });
+          return i;
+    }
+    $(document).ready(function(){
+        
+
+
+        $("#toggles li").click(function(){   
+           $(this).toggleClass("show");
+            console.log("toggle button clicked");
+
+            if($(this).attr("id") === "CSSToggle"){
+                    $("#cssView").toggle();
+                } else if ($(this).attr("id") === "jsToggle") {
+                    console.log("trying to show  js View");
+                    $("#jsView").toggle();    
+                } else if ($(this).attr("id") === "HTMLToggle"){
+                    $("#htmlView").toggle();
+                }else if ($(this).attr("id") === "resultToggle"){
+                    $("#resultsView").toggle();
+                }
+
+            //console.log(getNumTogglesToShow());
+
+            //filter will select the divs of class "codeViews" that have their display not equal to none.  I guess it makes an array of these divs.  Then we can figure out how many there are by using the length function. 
+            var showingDivs = $(".codeViews div").filter(function() {
+                return ($(this).css("display") != "none");
+            }).length;
+
+            var width = 100/showingDivs;
+
+            $(".codeViews div").width(width + "%");
+
+        }); // end click
+        
+        $("#runButton").click(function(){
+            var htmlInput = $("#htmlView textarea").val();
+            var cssInput = $("#cssView textarea").val();
+            /*var jsInput = $("#jsView textarea").val();
+            console.log(jsInput);  
+            */
+           var resultToShow = "<html><head><style>" + cssInput + "</style></head><body>" + htmlInput + "</body><script>"; 
+          
+            console.log(resultToShow);
+            
+            //in the contents of the iframe, find the html tag and chnage the html in the html tag to...
+            $("iframe").contents().find("html").html(resultToShow);
+            
+            // keeping ths part commented out for security reasons.
+          //  document.getElementById("resultsIframe").contentWindow.eval($("#jsView textarea").val());
+        }); //end runButton click
+
+    });
+
+    </script>
+</html>
