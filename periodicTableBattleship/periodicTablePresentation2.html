@@ -1,0 +1,104 @@
+<html>
+<head>
+	<title>Periodic Table??</title>
+	<link rel="stylesheet" type="text/css" href="">
+	<style type="text/css">
+	body {
+		font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+   font-weight: 300;
+		
+	}
+	
+
+
+	
+
+	table, tr {
+	}
+
+	td.blankSpace {
+		width: 20px;
+		border: none;
+
+	}
+
+	td.ptElement {
+		border: 1px black solid;
+		font-family: arial;
+	}
+
+	.hit {
+		background: red;
+	}
+
+	.miss {
+		background: blue;
+	}
+
+	.econfigLabels td {
+		width: 19px;
+		font-family: arial;
+		border: 1px white solid;
+
+	}
+
+	input.econfig {
+		width: 30px;
+	}
+
+	
+	</style>
+</head>
+<body>
+
+<form id="ptLabels">
+<button type="submit" id="submitForCheckboxes">Show: </button>
+<input type="checkbox" id="econfigCheckbox" value="Electron Configuration">Show Electron Configuration<br>
+
+<br>
+<label for="enrgyLevel">Energy level: </label>
+<input type="text" id="energyLevel" class="econfig"/> <br>
+
+<label for="enrgyLevel">sublevel: </label>
+<input type="text" id="sublevel" class="econfig"/> <br>
+
+<label for="enrgyLevel">electrons in sublevel: </label>
+<input type="text" id="energyLevel" class="econfig"/> <br>
+<button id="hitButton">HIT</button>
+<button id="missButton">MISS</button>
+
+
+</form>
+
+<div id="ptBorderInfo">
+	<div id="eConfigs">
+		<table class="econfigLabels">
+				<tr><td>s<sup>1</sup></td>
+				<td>s<sup>2</sup></td>		
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>				
+				<td>p<sup>1</sup></td>	
+				<td>p<sup>2</sup></td>	
+				<td>p<sup>3</sup></td>	
+				<td>p<sup>4</sup></td>	
+				<td>p<sup>5</sup></td>	
+				<td>p<sup>6</sup></td>	
+
+				</tr>
+		</table>
+	</div>
+</div>
+
+</body>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script type="text/javascript" src="main2.js"></script>
+
+</html>

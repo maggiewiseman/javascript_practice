@@ -1,0 +1,7 @@
+//periodic table battleship
+// I need to have the user select spots for a ship
+	- prompt that says, choose a battship location that is 4 elments long.  they must be next to each other or diagonal.
+		- validate that they are next to each other or diagonal, or change screen so only certain elements can be picked.
+		- reset button that clears the selection
+		
+	- render a periodic table and have him/her click on 3 next to each other

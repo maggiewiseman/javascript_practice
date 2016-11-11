@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>NumberGueser</title>
+        <style type="text/css">
+			body {
+  				font-family: Helvetica;
+			}
+
+
+
+        </style>
+    </head>
+    <body>
+    	<p>Guess a number between 1 and 10</p>
+		<form>
+		  <input id="inputGuess" type="text" name="number">
+		  <button id="submitButton">Submit</button>
+		</form>
+
+    </body>
+
+<script>
+let targetNumber = 7;
+    //Math.floor(Math.random() * 10) + 1;
+
+var timesGuessed = 0;
+
+function init () {
+
+var userValue = document.getElementById("inputGuess").value; 
+  console.log("the value is: " + userValue);
+  document.getElementById("submitButton").onclick = check(userValue);
+ // alert()
+  
+}
+
+function check (value) {
+  if(value === targetNumber){
+    showWin();
+    timesGuessed++;
+  }else {
+    
+     showError();
+     timesGuessed++;
+   // alert("wrong!" + timesGuessed);
+    document.write(timesGuessed);
+     if(timesGuessed > 4){
+       showLoss();
+     }
+  }
+  
+}
+
+function showWin () {
+  document.getElementsByTagName("form").style.display("none");
+document.write("You Win!");
+}
+
+function showError () {
+  
+}
+
+function showLoss () {
+  
+}
+
+init();
+</script>
+</html>
