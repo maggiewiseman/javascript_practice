@@ -22,8 +22,7 @@ var deepEqual = function (valueA, valueB) {
             if (!deepEqual(valueA[i], valueB[i])) {
                 return false;
             }
-          }
-          
+          } 
         } else {
           //one array is longer than the other so not equal
           console.log("your arrays are not the same size");
