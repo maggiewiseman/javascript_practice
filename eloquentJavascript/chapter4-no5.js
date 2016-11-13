@@ -11,19 +11,40 @@ var deepEqual = function (valueA, valueB) {
     //if objects call deepEqual on their properties. Otherwise check equality.
   } else if (typeof valueA === typeof valueB) {
     console.log( "your values are the same type of object which is: " + typeof valueA);
-      //need to check if we have arrays which I will do later
-      if (1 === 0) {
-        
+      //need to check if we have arrays 
+      // get more specific type to check for object Array
+      var isAarray = Object.prototype.toString.call(valueA);
+      var isBarray =Object.prototype.toString.call(valueB);
+      if (isAarray == isBarray && isBarray == "[object Array]") {
+         console.log("you have two arrays.");
+        if(valueA.length == valueB.length) {
+          for(var i = 0; i < valueA.length; i++) {
+            if (!deepEqual(valueA[i], valueB[i])) {
+                return false;
+            }
+          }
+          
+        } else {
+          //one array is longer than the other so not equal
+          console.log("your arrays are not the same size");
+          return false;
+        }
+         
       //only have to check if valueA or B are objects because I already checked that they are the same type.
       } else if (typeof valueA == "object") {
-        //if they are objects iterate through properties
-        //need to check if they are arrays
-        
-        for(var prop in valueA) {
+
+        //if both are objects, need to check if they are equal in size
+        if (Object.keys(valueA).length == Object.keys(valueB).length) {
+           //if they are objects equal in size, iterate through properties
+           for(var prop in valueA) {
             console.log("valueA.prop:" + valueA[prop]);
-        //  if(typeof valueA.prop == "object" && valueB.prop == "object") {
             return deepEqual(valueA[prop], valueB[prop]);    
+          }
+        } else {
+          //not the same size objects so not equal
+          return false;
         }
+       
       } else if (valueA === valueB) {
         return true;
       } else {
@@ -55,8 +76,14 @@ var deepEqual = function (valueA, valueB) {
 
 var arrayA = [1, 3, 5, 7, 9];
 var arrayB = [1, 3, 5, 7, 9];
+var arrayC = [1, 3, 5, 7, 29];
+var arrayD = [21, 3, 5, 7, 9];
+var arrayE = [1, 3, 5, 7, 9, 10];
 
-//console.log("test 7: " + deepEqual(arrayA, arrayB)); //true
+//console.log("test 7a: " + deepEqual(arrayA, arrayB)); //true
+console.log("test 7b: " + deepEqual(arrayA, arrayC)); //false
+//console.log("test 7c: " + deepEqual(arrayA, arrayD)); //false
+//console.log("test 7d: " + deepEqual(arrayA, arrayE)); //false
 
 var objectA = {
   name: "maggie",
@@ -105,8 +132,13 @@ var objectF = {
 };
 
 
-//for(var prop in objectA) {
-//  console.log("property in objectA:" + objectA.name);
-//}
-console.log(deepEqual(objectA, objectC)); 
-console.log(Object.prototype.toString.call( arrayA ));
+//console.log("test 7: " + deepEqual(objectA, objectB)); //true
+//console.log("test 8: " + deepEqual(objectA, objectC)); //false
+//console.log("test 9: " + deepEqual(objectA, objectD)); //false
+//console.log("test 10: " + deepEqual(objectA, "objectA")); //false
+//console.log("test 11: " + deepEqual(objectA, 10)); //false
+
+
+
+
+//console.log(Object.prototype.toString.call( arrayA ));
