@@ -23,22 +23,24 @@ ancestry.forEach(function(person) {
 var ageArray = [];
 //loop through ancestry array
 ancestry.forEach(function(child) {
-var childBorn, 
-    momBorn, 
-    mothersName,
-    age;
+  var childBorn, 
+      momBorn, 
+      mothersName,
+      age;
   
-childBorn = child.born;
-mom = child.mother;
-if(byName[mom]) {
-  age = childBorn - byName[mom].born;
-  console.log(age);
-}
-
+  childBorn = child.born;
+  mom = child.mother;
+  if(byName[mom]) {
+    age = childBorn - byName[mom].born;
+    ageArray.push(age);
+    console.log(ageArray);
+  }
 });
+
+console.log(average(ageArray));
+
 
 //console.log(ancestry[0].born);
 //console.log(byName["Emile Haverbeke"].born);
-// put ages into an array
-//compute average
+
 // → 31.2
