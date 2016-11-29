@@ -1,18 +1,44 @@
-require("code/ancestry.js");
 
-var ancestors = ANCESTRY_FILE;
-console.log(ancestors);
+
+var ancestry = JSON.parse(ANCESTRY_FILE);
+
+console.log(ancestry);
+
 
 function average(array) {
   function plus(a, b) { return a + b; }
   return array.reduce(plus) / array.length;
 }
 
+/* Create an object to hold objects
+this is kind of a map for the ancestry array 
+where the property is the name and the value is the person object. */
 var byName = {};
+/*forEach element (which is a person object) in the ancestry array, put it in the byName object which where the property name is the person name. */
 ancestry.forEach(function(person) {
   byName[person.name] = person;
 });
 
-// Your code here.
+//goal is to compute average mother-child age difference
+var ageArray = [];
+//loop through ancestry array
+ancestry.forEach(function(child) {
+var childBorn, 
+    momBorn, 
+    mothersName,
+    age;
+  
+childBorn = child.born;
+mom = child.mother;
+if(byName[mom]) {
+  age = childBorn - byName[mom].born;
+  console.log(age);
+}
 
+});
+
+//console.log(ancestry[0].born);
+//console.log(byName["Emile Haverbeke"].born);
+// put ages into an array
+//compute average
 // → 31.2
