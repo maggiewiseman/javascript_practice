@@ -1,0 +1,50 @@
+<html>
+<head>
+<script>
+var rockets = [
+    { country:'Russia', launches:32 },
+    { country:'US', launches:23 },
+    { country:'China', launches:16 },
+    { country:'Europe(ESA)', launches:7 },
+    { country:'India', launches:4 },
+    { country:'Japan', launches:3 }
+];
+
+var sum = rockets.reduce(function(prevVal, elem) {
+    return prevVal + elem.launches;
+}, 0);
+
+var MOUNTAINS = [
+  [{name: "Kilimanjaro", height: 5895, country: "Tanzania"}],
+  [{name: "Everest", height: 8848, country: "Nepal"}],
+  [{name: "Mount Fuji", height: 3776, country: "Japan"}],
+  [{name: "Mont Blanc", height: 4808, country: "Italy/France"}],
+  [{name: "Vaalserberg", height: 323, country: "Netherlands"}],
+  [{name: "Denali", height: 6168, country: "United States"}],
+  [{name: "Popocatepetl", height: 5465, country: "Mexico"}]
+];
+
+function minWidth(arr){
+  return arr.text.reduce(function(width, line) {
+    return Math.max(width, line.length);
+  }, 0);
+}
+
+function colWidths(rows) {
+  return rows[0].map(function(_, i) {
+    return rows.reduce(function(max, row) {
+      return Math.max(max, minWidth(row[i]));
+    }, 0);
+  });
+}
+
+
+
+var columns = colWidths(MOUNTAINS);
+console.log(columns);
+
+</script>
+</head>
+<body>
+</body>
+</html>
